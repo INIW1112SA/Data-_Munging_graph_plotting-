@@ -13,11 +13,11 @@ describe('Test Application as WhiteBox', function(){
     expect(convert.bind('undefined',8575)).to.throw(Error,'It is not an array');
        done();
     });
-  it('length check', function(done){
+  it('should check the length', function(done){
     expect(convert.bind('undefined',[])).to.throw(Error,'the array does not have any value');
         done();
     });
-  it('array values check', function(done){
+  it('should check the array values', function(done){
       expect(convert.bind('undefined',['Netherlands', 'Canada', 'United Kingdom','United States',
       'Australia', 'France', 'Germany', 'Spain', 'South Africa'])).to.not.throw(Error,'the array is  well defined');
           done();
@@ -39,7 +39,7 @@ describe('Test Application as WhiteBox', function(){
         });
       });
         describe('Test on method of Interface for line event', function(err){
-        it('should be called', function() {
+        it('should be called with the line event', function() {
                var stub = sinon.stub(readline.Interface.prototype, 'on');
                convert(['Netherlands', 'Canada', 'United Kingdom',
               'United States', 'Australia', 'France', 'Germany', 'Spain', 'South Africa']);
@@ -51,7 +51,7 @@ describe('Test Application as WhiteBox', function(){
        });
 
         describe('Test on method of Interface for close event', function(err) {
-        it('should be called', function() {
+        it('should be called with the close event', function() {
                var stub = sinon.stub(readline.Interface.prototype,'on');
                convert(['Netherlands', 'Canada', 'United Kingdom',
               'United States', 'Australia', 'France', 'Germany', 'Spain', 'South Africa']);

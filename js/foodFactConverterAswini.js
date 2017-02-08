@@ -1,4 +1,4 @@
-   module.exports = function(input) {
+    module.exports = function(input) {
    if (!(input instanceof Array)) {
        throw new Error('It is not an array');
    }
@@ -22,15 +22,15 @@
     let northEurope = ['United Kingdom', 'Denmark', 'Sweden', 'Norway'];
     let centralEurope = ['France', 'Belgium', 'Germany', 'Switzerland', 'Netherlands'];
     let southEurope = ['Portugal', 'Greece', 'Italy', 'Spain', 'Croatia', 'Albania'];
-    let fatcontentNorth = 0;
-    let carbocontentNorth = 0;
-    let proteincontentNorth = 0;
-    let fatcontentCentral = 0;
-    let carbocontentCentral = 0;
-    let proteincontentCentral = 0;
-    let fatcontentSouth = 0;
-    let carbocontentSouth = 0;
-    let proteincontentSouth = 0;
+    let fatContentNorth = 0;
+    let carboContentNorth = 0;
+    let proteinContentNorth = 0;
+    let fatContentCentral = 0;
+    let carboContentCentral = 0;
+    let proteinContentCentral = 0;
+    let fatContentSouth = 0;
+    let carboContentSouth = 0;
+    let proteinContentSouth = 0;
 
     // finds the index
     function indexFind(lineIndex) {
@@ -62,29 +62,37 @@
             carboIndex = carboIndex + lines.indexOf('carbohydrates_100g');
             fatIndex = fatIndex + lines.indexOf('fat_100g');
         }
+        // gets the salt and sugar value
         if (countryIndex !== -1 || saltIndex !== -1 || sugarIndex !== -1) {
             let newIndex = indexFind(lines[countryIndex]);
             sugarContent[newIndex] = sugarContent[newIndex] + Number(lines[sugarIndex]);
             saltContent[newIndex] = saltContent[newIndex] + Number(lines[saltIndex]);
         }
+
         if (countryIndex !== -1 || proteinIndex !== -1 || carboIndex !== -1 || fatIndex !== -1) {
+        // gets protein ,carbo and fat content for northEurope
+
         if(northEurope.includes(lines[countryIndex]))
         {
-          fatcontentNorth = fatcontentNorth + Number(lines[fatIndex]);
-          carbocontentNorth = carbocontentNorth + Number(lines[carboIndex]);
-          proteincontentNorth = proteincontentNorth + Number(lines[proteinIndex]);
+          fatContentNorth = fatContentNorth + Number(lines[fatIndex]);
+          carboContentNorth = carboContentNorth + Number(lines[carboIndex]);
+          proteinContentNorth = proteinContentNorth + Number(lines[proteinIndex]);
         }
+        // gets protein ,carbo and fat content for centralEurope
+
         if(centralEurope.includes(lines[countryIndex]))
         {
-          fatcontentCentral = fatcontentCentral + Number(lines[fatIndex]);
-          carbocontentCentral = carbocontentCentral + Number(lines[carboIndex]);
-          proteincontentCentral = proteincontentCentral + Number(lines[proteinIndex]);
+          fatContentCentral = fatContentCentral + Number(lines[fatIndex]);
+          carboContentCentral = carboContentCentral + Number(lines[carboIndex]);
+          proteinContentCentral = proteinContentCentral + Number(lines[proteinIndex]);
         }
+        // gets protein ,carbo and fat content for southEurope
+
         if(southEurope.includes(lines[countryIndex]))
         {
-          fatcontentSouth = fatcontentSouth + Number(lines[fatIndex]);
-          carbocontentSouth = carbocontentSouth + Number(lines[carboIndex]);
-          proteincontentSouth = proteincontentSouth + Number(lines[proteinIndex]);
+          fatContentSouth = fatContentSouth + Number(lines[fatIndex]);
+          carboContentSouth = carboContentSouth + Number(lines[carboIndex]);
+          proteinContentSouth = proteinContentSouth + Number(lines[proteinIndex]);
         }
         }
         flag = false;
@@ -92,26 +100,26 @@
     r1.on('close', function() {
         for (let i = 0; i < countries.length; i = i + 1) {
             saltSugar.push({
-                Country: countries[i],
+                country: countries[i],
                 Salt: saltContent[i],
                 Sugar: sugarContent[i]
             });
         }
             fatCarboProtein.push({
-                Country: 'North Europe',
-                Fat: fatcontentNorth,
-                carbohydrates: carbocontentNorth,
-                Protein: proteincontentNorth
+                country: 'North Europe',
+                Fat: fatContentNorth,
+                carbohydrates: carboContentNorth,
+                Protein: proteinContentNorth
             }, {
-                Country: 'Central Europe',
-                Fat: fatcontentCentral,
-                carbohydrates: carbocontentCentral,
-                Protein: proteincontentCentral
+                country: 'Central Europe',
+                Fat: fatContentCentral,
+                carbohydrates: carboContentCentral,
+                Protein: proteinContentCentral
             }, {
                 Country: 'South Europe',
-                Fat: fatcontentSouth,
-                carbohydrates: carbocontentSouth,
-                Protein: proteincontentSouth
+                Fat: fatContentSouth,
+                carbohydrates: carboContentSouth,
+                Protein: proteinContentSouth
             }
           );
       // writes the json file
